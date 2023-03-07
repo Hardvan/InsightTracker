@@ -1,0 +1,26 @@
+/*
+  ? To initialize:
+  1) npx create-expo-app InsightTracker
+
+  ? To run:
+  1) cd InsightTracker
+  2) npx expo start
+  3) Press 'a' to run on Android emulator
+  4) Press 'w' to run on web browser
+
+  ? Open android virtual device (AVD):
+  1) Open Android Studio
+  2) Open AVD Manager
+  3) Start AVD
+  
+  ? To open developer menu on an Android emulator:
+  1) Press ctrl + m on emulator. On mobile, shake device.
+
+  ? To publish:
+  1) expo publish
+
+  ? Project Link:
+
+
+  ? Re-run in terminal if it says file not found
+*/
