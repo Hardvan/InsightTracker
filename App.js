@@ -1,3 +1,11 @@
+/*
+  ? To publish the latest changes to expo:
+  1) expo publish
+
+  ? Project Link:
+  https://expo.dev/@hardvan/InsightTracker?serviceType=classic&distribution=expo-go
+*/
+
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
