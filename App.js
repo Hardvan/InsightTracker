@@ -1,25 +1,49 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default function App() {
   const [touchData, setTouchData] = useState(null);
 
-  const handlePress = (event) => {
+  const handlePressIn = (event) => {
+    setTouchData({ startTime: new Date().getTime() });
+  };
+
+  const handlePressOut = (event) => {
+    // Get the coordinates of the touch
     const { locationX, locationY } = event.nativeEvent;
-    setTouchData({ x: locationX.toFixed(2), y: locationY.toFixed(2) });
+
+    // Update the state with the touch data
+    setTouchData((prevState) => ({
+      ...prevState, // Keep the previous state
+      x: locationX.toFixed(2),
+      y: locationY.toFixed(2),
+      duration: new Date().getTime() - prevState.startTime,
+    }));
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.container} onPress={handlePress}>
+      <TouchableOpacity
+        style={styles.container}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+      >
         {/* Initial Message */}
-        {!touchData && <Text>Touch anywhere on the screen</Text>}
-        {/* After touch */}
-        {touchData && (
-          <Text>
-            You touched at coordinates: ({touchData.x}, {touchData.y})
-          </Text>
+        {!touchData && (
+          <Text style={styles.text}>Touch anywhere on the screen</Text>
+        )}
+        {/* Touch Data */}
+        {touchData && touchData.x && touchData.y && (
+          <View>
+            {/* Coordinates */}
+            <Text style={styles.text}>
+              You touched at coordinates: ({touchData.x}, {touchData.y})
+            </Text>
+            {/* Duration */}
+            <Text style={styles.text}>
+              Touch duration: {touchData.duration}ms
+            </Text>
+          </View>
         )}
       </TouchableOpacity>
     </View>
@@ -32,5 +56,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#4a148c",
   },
 });
