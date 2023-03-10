@@ -1,4 +1,7 @@
 /*
+  ? To run:
+  1) npx expo start
+
   ? To publish the latest changes to expo:
   1) expo publish
 
@@ -23,8 +26,12 @@ export default function App() {
     // Update the state with the touch data
     setTouchData((prevState) => ({
       ...prevState, // Keep the previous state
+
+      // Touch Coordinates
       x: locationX.toFixed(2),
       y: locationY.toFixed(2),
+
+      // Touch Duration
       duration: new Date().getTime() - prevState.startTime,
     }));
   };
@@ -43,11 +50,11 @@ export default function App() {
         {/* Touch Data */}
         {touchData && touchData.x && touchData.y && (
           <View>
-            {/* Coordinates */}
+            {/* Touch Coordinates */}
             <Text style={styles.text}>
               You touched at coordinates: ({touchData.x}, {touchData.y})
             </Text>
-            {/* Duration */}
+            {/* Touch Duration */}
             <Text style={styles.text}>
               Touch duration: {touchData.duration}ms
             </Text>
