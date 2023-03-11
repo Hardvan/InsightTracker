@@ -43,20 +43,30 @@ export default function App() {
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
+        <Text style={styles.title}>InsightTracker</Text>
+
         {/* Initial Message */}
         {!touchData && (
           <Text style={styles.text}>Touch anywhere on the screen</Text>
         )}
+
         {/* Touch Data */}
         {touchData && touchData.x && touchData.y && (
           <View>
             {/* Touch Coordinates */}
             <Text style={styles.text}>
-              You touched at coordinates: ({touchData.x}, {touchData.y})
+              Touch coordinates:{" "}
+              <Text style={(styles.text, { fontFamily: "monospace" })}>
+                ({touchData.x}, {touchData.y})
+              </Text>
             </Text>
+
             {/* Touch Duration */}
             <Text style={styles.text}>
-              Touch duration: {touchData.duration}ms
+              Touch duration:{" "}
+              <Text style={{ fontFamily: "monospace" }}>
+                {touchData.duration}ms
+              </Text>
             </Text>
           </View>
         )}
@@ -72,9 +82,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
   text: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#4a148c",
+    textAlign: "center",
   },
 });
