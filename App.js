@@ -20,7 +20,10 @@ import {
 import { useFonts } from "expo-font";
 
 export default function App() {
-  const [touchData, setTouchData] = useState(null);
+  const [touchData, setTouchData] = useState({});
+  const [touchLogs, setTouchLogs] = useState([]);
+  const [firstTouch, setFirstTouch] = useState(false);
+
   const [loaded] = useFonts({
     LatoRegular: require("./assets/fonts/Lato-Regular.ttf"),
     MohaveRegular: require("./assets/fonts/Mohave-Regular.ttf"),
@@ -29,16 +32,18 @@ export default function App() {
     PoppinsSemiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
 
+  // To prevent errors
   useEffect(() => {
     // Side effect
   }, []);
 
   if (!loaded) {
-    return <Text>Font not loaded</Text>;
+    return <Text>Fonts not loaded</Text>;
   }
 
   const handlePressIn = (event) => {
     setTouchData({ startTime: new Date().getTime() });
+    setFirstTouch(true);
   };
 
   const handlePressOut = (event) => {
@@ -55,7 +60,21 @@ export default function App() {
 
       // Touch Duration
       duration: new Date().getTime() - prevState.startTime,
+
+      // Timestamp
+      timestamp: new Date().getTime(),
     }));
+
+    // Add the touch data to the touch logs
+    setTouchLogs((prevState) => [
+      ...prevState,
+      {
+        x: locationX.toFixed(2),
+        y: locationY.toFixed(2),
+        duration: new Date().getTime() - touchData.startTime,
+        timestamp: new Date().getTime(),
+      },
+    ]);
   };
 
   return (
@@ -70,12 +89,10 @@ export default function App() {
           onPressOut={handlePressOut}
         >
           <Text style={styles.title}>InsightTracker</Text>
-
           {/* Initial Message */}
-          {!touchData && (
+          {!firstTouch && (
             <Text style={styles.text}>Touch anywhere on the screen</Text>
           )}
-
           {/* Touch Data */}
           {touchData && touchData.x && touchData.y && (
             <View>
@@ -94,6 +111,11 @@ export default function App() {
               </Text>
             </View>
           )}
+
+          {/* Touch Logs */}
+          {/* {touchLogs && touchLogs.length > 0 && (
+            <Text>Touch logs: {JSON.stringify(touchLogs)}</Text>
+          )} */}
         </TouchableOpacity>
       </View>
     </ImageBackground>
