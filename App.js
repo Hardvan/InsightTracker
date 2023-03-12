@@ -9,11 +9,24 @@
   https://expo.dev/@hardvan/InsightTracker?serviceType=classic&distribution=expo-go
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const [touchData, setTouchData] = useState(null);
+  const [loaded] = useFonts({
+    Lato: require("./assets/fonts/Lato-Regular.ttf"),
+    Mohave: require("./assets/fonts/Mohave-Regular.ttf"),
+  });
+
+  useEffect(() => {
+    // Side effect
+  }, []);
+
+  if (!loaded) {
+    return <Text>Font not loaded</Text>;
+  }
 
   const handlePressIn = (event) => {
     setTouchData({ startTime: new Date().getTime() });
@@ -83,13 +96,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontFamily: "Mohave",
+    fontSize: 42,
     marginBottom: 20,
   },
   text: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: "Lato",
+    fontSize: 24,
     color: "#4a148c",
     textAlign: "center",
   },
