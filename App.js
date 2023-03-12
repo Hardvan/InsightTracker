@@ -115,6 +115,9 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
     color: "#3A1078",
     marginBottom: 20,
+    textShadowColor: "rgba(0, 0, 0, 0.50)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   text: {
     fontFamily: "PoppinsRegular",
