@@ -10,7 +10,13 @@
 */
 
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { useFonts } from "expo-font";
 
 export default function App() {
@@ -53,54 +59,60 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.container}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-      >
-        <Text style={styles.title}>InsightTracker</Text>
+    <ImageBackground
+      source={require("./assets/images/background.jpg")}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.container}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+        >
+          <Text style={styles.title}>InsightTracker</Text>
 
-        {/* Initial Message */}
-        {!touchData && (
-          <Text style={styles.text}>Touch anywhere on the screen</Text>
-        )}
+          {/* Initial Message */}
+          {!touchData && (
+            <Text style={styles.text}>Touch anywhere on the screen</Text>
+          )}
 
-        {/* Touch Data */}
-        {touchData && touchData.x && touchData.y && (
-          <View>
-            {/* Touch Coordinates */}
-            <Text style={styles.text}>
-              Touch coordinates:{" "}
-              <Text style={(styles.text, { fontFamily: "monospace" })}>
-                ({touchData.x}, {touchData.y})
+          {/* Touch Data */}
+          {touchData && touchData.x && touchData.y && (
+            <View>
+              {/* Touch Coordinates */}
+              <Text style={styles.text}>
+                Touch coordinates:{" "}
+                <Text style={styles.data}>
+                  ({touchData.x}, {touchData.y})
+                </Text>
               </Text>
-            </Text>
 
-            {/* Touch Duration */}
-            <Text style={styles.text}>
-              Touch duration:{" "}
-              <Text style={{ fontFamily: "monospace" }}>
-                {touchData.duration}ms
+              {/* Touch Duration */}
+              <Text style={styles.text}>
+                Touch duration:{" "}
+                <Text style={styles.data}>{touchData.duration}ms</Text>
               </Text>
-            </Text>
-          </View>
-        )}
-      </TouchableOpacity>
-    </View>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
     fontFamily: "MohaveBold",
     fontSize: 42,
+    letterSpacing: 3,
     color: "#3A1078",
     marginBottom: 20,
   },
@@ -109,5 +121,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#2F58CD",
     textAlign: "center",
+  },
+  data: {
+    fontFamily: "monospace",
+    fontWeight: "bold",
   },
 });
