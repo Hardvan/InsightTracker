@@ -46,6 +46,17 @@ export default function App() {
     setFirstTouch(true);
   };
 
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  }
+
   const handlePressOut = (event) => {
     // Get the coordinates of the touch
     const { locationX, locationY } = event.nativeEvent;
@@ -62,7 +73,7 @@ export default function App() {
       duration: new Date().getTime() - prevState.startTime,
 
       // Timestamp
-      timestamp: new Date().getTime(),
+      timestamp: formatDate(new Date().getTime()),
     }));
 
     // Add the touch data to the touch logs
@@ -72,7 +83,7 @@ export default function App() {
         x: locationX.toFixed(2),
         y: locationY.toFixed(2),
         duration: new Date().getTime() - touchData.startTime,
-        timestamp: new Date().getTime(),
+        timestamp: formatDate(new Date().getTime()),
       },
     ]);
   };
@@ -109,10 +120,15 @@ export default function App() {
                 Touch duration:{" "}
                 <Text style={styles.data}>{touchData.duration}ms</Text>
               </Text>
+
+              {/* Touch Timestamp */}
+              <Text style={styles.text}>
+                Touch timestamp:{" "}
+                <Text style={styles.data}>{touchData.timestamp}</Text>
+              </Text>
             </View>
           )}
-
-          {/* Touch Logs */}
+          {/* Touch Logs (for checking) */}
           {/* {touchLogs && touchLogs.length > 0 && (
             <Text>Touch logs: {JSON.stringify(touchLogs)}</Text>
           )} */}
