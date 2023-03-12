@@ -16,8 +16,11 @@ import { useFonts } from "expo-font";
 export default function App() {
   const [touchData, setTouchData] = useState(null);
   const [loaded] = useFonts({
-    Lato: require("./assets/fonts/Lato-Regular.ttf"),
-    Mohave: require("./assets/fonts/Mohave-Regular.ttf"),
+    LatoRegular: require("./assets/fonts/Lato-Regular.ttf"),
+    MohaveRegular: require("./assets/fonts/Mohave-Regular.ttf"),
+    MohaveBold: require("./assets/fonts/Mohave-Bold.ttf"),
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsSemiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
 
   useEffect(() => {
@@ -96,14 +99,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontFamily: "Mohave",
+    fontFamily: "MohaveBold",
     fontSize: 42,
+    color: "#3A1078",
     marginBottom: 20,
   },
   text: {
-    fontFamily: "Lato",
-    fontSize: 24,
-    color: "#4a148c",
+    fontFamily: "PoppinsRegular",
+    fontSize: 20,
+    color: "#2F58CD",
     textAlign: "center",
   },
 });
